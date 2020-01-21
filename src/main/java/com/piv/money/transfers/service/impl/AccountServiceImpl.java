@@ -31,24 +31,31 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public AccountDto deposit(String id, BigDecimal amount) throws ApplicationException {
-        Account account = accountDao.read(id);
-        if (account == null) {
-            throw new ApplicationException(String.format(ACCOUNT_IS_ABSENT, id));
+        try {
+            accountDao.lock(id);
+            Account account = accountDao.read(id);
+            account.setAmount(account.getAmount().add(amount));
+            return toDto(accountDao.updateAccount(account));
+        } finally {
+            accountDao.unlock(id);
         }
-        account.setAmount(account.getAmount().add(amount));
-        return toDto(accountDao.updateAccount(account));
     }
 
     public AccountDto withdraw(String id, BigDecimal amount) throws ApplicationException {
-        Account account = accountDao.read(id);
-        if (account == null) {
-            throw new ApplicationException(String.format(ACCOUNT_IS_ABSENT, id));
+        try {
+            accountDao.lock(id);
+            Account account = accountDao.read(id);
+            if (account == null) {
+                throw new ApplicationException(String.format(ACCOUNT_IS_ABSENT, id));
+            }
+            if (amount.compareTo(account.getAmount()) > 0) {
+                throw new ApplicationException(String.format(ACCOUNT_HAS_NOT_ENOUGH_AMOUNT, id, account.getAmount(), amount));
+            }
+            account.setAmount(account.getAmount().subtract(amount));
+            return toDto(accountDao.updateAccount(account));
+        } finally {
+            accountDao.unlock(id);
         }
-        if (amount.compareTo(account.getAmount()) > 0) {
-            throw new ApplicationException(String.format(ACCOUNT_HAS_NOT_ENOUGH_AMOUNT, id, account.getAmount(), amount));
-        }
-        account.setAmount(account.getAmount().subtract(amount));
-        return toDto(accountDao.updateAccount(account));
     }
 
     public void delete(String id) {

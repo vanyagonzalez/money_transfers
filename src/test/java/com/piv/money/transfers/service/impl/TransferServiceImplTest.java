@@ -38,6 +38,7 @@ public class TransferServiceImplTest {
         when(accountDao.read(TEST_ACCOUNT_ID_1)).thenReturn(testAccount1);
         when(accountDao.read(TEST_ACCOUNT_ID_2)).thenReturn(testAccount2);
         when(accountDao.read(ABSENT_ACCOUNT_ID)).thenReturn(null);
+        when(accountDao.lock(ABSENT_ACCOUNT_ID)).thenThrow(ApplicationException.class);
         when(accountDao.updateAccount(testAccount1)).thenReturn(testAccount1);
         when(accountDao.updateAccount(testAccount2)).thenReturn(testAccount1);
         doNothing().when(accountDao).delete(any(String.class));

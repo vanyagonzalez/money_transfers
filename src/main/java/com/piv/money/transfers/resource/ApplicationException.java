@@ -12,6 +12,7 @@ public class ApplicationException extends Exception implements ExceptionMapper<A
     private static final long serialVersionUID = 1L;
 
     public static String ACCOUNT_IS_ABSENT = "Account [%s] is absent.";
+    public static String ACCOUNT_IS_LOCKED = "Account [%s] is locked.";
     public static String ACCOUNT_HAS_NOT_ENOUGH_AMOUNT = "Account [%s] has not enough amount [%s]. Required amount [%s].";
     public static String AMOUNT_IS_LESS_THAN_ZERO = "Amount [%s] is less than 0";
     public static String AMOUNT_IS_NOT_A_NUMBER = "Amount [%s] is not a number";

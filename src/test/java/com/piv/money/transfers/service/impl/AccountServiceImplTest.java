@@ -36,6 +36,7 @@ public class AccountServiceImplTest {
         when(accountDao.create(any(BigDecimal.class))).thenReturn(testAccount);
         when(accountDao.read(TEST_ACCOUNT_ID)).thenReturn(testAccount);
         when(accountDao.read(ABSENT_ACCOUNT_ID)).thenReturn(null);
+        when(accountDao.lock(ABSENT_ACCOUNT_ID)).thenThrow(ApplicationException.class);
         when(accountDao.updateAccount(any(Account.class))).thenReturn(testAccount);
         doNothing().when(accountDao).delete(any(String.class));
 
