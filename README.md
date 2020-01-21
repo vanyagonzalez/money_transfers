@@ -15,8 +15,8 @@
 ## API
 - GET http://localhost:8080/account/{accountId}
 - POST http://localhost:8080/account/create (Amount in body as String)
-- POST http://localhost:8080/account/deposit/{accountId}(Amount in body as String)
-- POST http://localhost:8080/account/withdraw/{accountId}(Amount in body as String)
+- POST http://localhost:8080/account/deposit/{accountId} (Amount in body as String)
+- POST http://localhost:8080/account/withdraw/{accountId} (Amount in body as String)
 - DELETE http://localhost:8080/account/delete/{accountId}
 - POST http://localhost:8080/transfer/from/{fromId}/to/{toId} (Amount in body as String)
 
