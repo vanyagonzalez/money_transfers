@@ -35,6 +35,8 @@ public class TransferServiceImpl implements TransferService {
         }
 
         fromAccount.setAmount(fromAccount.getAmount().subtract(amount));
+        accountDao.updateAccount(fromAccount);
         toAccount.setAmount(toAccount.getAmount().add(amount));
+        accountDao.updateAccount(toAccount);
     }
 }

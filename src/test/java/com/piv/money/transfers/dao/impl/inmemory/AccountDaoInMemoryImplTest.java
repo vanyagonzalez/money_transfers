@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
  */
 public class AccountDaoInMemoryImplTest {
     private static final String TEST_ACCOUNT_ID = "123";
-    private static Account testAccount;
+    private static AccountInMemory testAccount;
     private static AccountDao accountDao;
 
     @BeforeClass
@@ -30,7 +30,7 @@ public class AccountDaoInMemoryImplTest {
         testAccount = new AccountInMemory(TEST_ACCOUNT_ID, BigDecimal.TEN);
         when(dataSource.createNewAccount(any(BigDecimal.class))).thenReturn(testAccount);
         when(dataSource.readAccount(any(String.class))).thenReturn(testAccount);
-        when(dataSource.updateAccount(any(Account.class))).thenReturn(testAccount);
+        when(dataSource.updateAccount(any(AccountInMemory.class))).thenReturn(testAccount);
         doNothing().when(dataSource).deleteAccount(any(String.class));
 
         accountDao = new AccountDaoInMemoryImpl(dataSource);

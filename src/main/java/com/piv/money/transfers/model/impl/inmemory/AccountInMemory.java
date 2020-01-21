@@ -22,4 +22,11 @@ public class AccountInMemory extends BasicEntityInMemory implements Account {
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
+
+    public AccountInMemory clone() {
+        AccountInMemory accountInMemory = new AccountInMemory(getId(), amount);
+        accountInMemory.setLocked(isLocked());
+        accountInMemory.setLastChangeDate(getLastChangeDate());
+        return accountInMemory;
+    }
 }

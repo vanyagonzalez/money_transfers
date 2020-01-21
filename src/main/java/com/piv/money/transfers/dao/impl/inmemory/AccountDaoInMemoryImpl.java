@@ -3,6 +3,7 @@ package com.piv.money.transfers.dao.impl.inmemory;
 import com.piv.money.transfers.dao.AccountDao;
 import com.piv.money.transfers.dao.impl.inmemory.datasource.InMemoryDataSource;
 import com.piv.money.transfers.model.Account;
+import com.piv.money.transfers.model.impl.inmemory.AccountInMemory;
 
 import java.math.BigDecimal;
 
@@ -25,19 +26,19 @@ public class AccountDaoInMemoryImpl implements AccountDao {
     }
 
     public Account updateAccount(Account account) {
-        return dataSource.updateAccount(account);
+        return dataSource.updateAccount((AccountInMemory)account);
     }
 
     public Account lock(String id) {
         Account account = read(id);
         account.setLocked(true);
-        return dataSource.updateAccount(account);
+        return dataSource.updateAccount((AccountInMemory)account);
     }
 
     public Account unlock(String id) {
         Account account = read(id);
         account.setLocked(false);
-        return dataSource.updateAccount(account);
+        return dataSource.updateAccount((AccountInMemory)account);
     }
 
     public void delete(String id) {
